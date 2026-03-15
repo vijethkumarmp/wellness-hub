@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Brain, Heart, Activity, TrendingUp, Shield, Users, ArrowRight } from 'lucide-react';
+import { Brain, Heart, Activity, TrendingUp, Shield, Users, ArrowRight, Zap, Code, Cpu, Network } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
@@ -12,33 +12,46 @@ const features = [
   {
     icon: Brain,
     title: 'PREDICTIVE INTELLIGENCE',
-    description: 'Advanced AI analyzes patterns to detect health risks before symptoms appear'
+    description: 'Advanced AI analyzes patterns to detect health risks before symptoms appear',
+    tech: 'ML Algorithms'
   },
   {
     icon: Heart,
     title: 'MIND-BODY UNITY',
-    description: 'Holistic approach connecting mental and physical wellbeing as one system'
+    description: 'Holistic approach connecting mental and physical wellbeing as one system',
+    tech: 'Neural Networks'
   },
   {
     icon: Activity,
     title: 'VITALITY TRACKING',
-    description: 'Real-time health scoring based on lifestyle, emotions, and biometric data'
+    description: 'Real-time health scoring based on lifestyle, emotions, and biometric data',
+    tech: 'Real-time Analytics'
   },
   {
     icon: TrendingUp,
     title: 'PROACTIVE GUIDANCE',
-    description: 'Context-aware recommendations that prevent issues before they escalate'
+    description: 'Context-aware recommendations that prevent issues before they escalate',
+    tech: 'AI Recommendations'
   },
   {
     icon: Shield,
     title: 'PRIVACY FIRST',
-    description: 'On-device processing ensures your health data never leaves your control'
+    description: 'On-device processing ensures your health data never leaves your control',
+    tech: 'Encryption'
   },
   {
     icon: Users,
     title: 'COMMUNITY INSIGHTS',
-    description: 'Anonymous health trends help you understand broader wellness patterns'
+    description: 'Anonymous health trends help you understand broader wellness patterns',
+    tech: 'Data Science'
   }
+];
+
+const techStack = [
+  { icon: Cpu, label: 'Advanced AI', color: 'from-accentmintgreen to-linkblue' },
+  { icon: Network, label: 'Cloud Infrastructure', color: 'from-linkblue to-secondary' },
+  { icon: Code, label: 'Real-time Processing', color: 'from-secondary to-accentmintgreen' },
+  { icon: Zap, label: 'Edge Computing', color: 'from-accentmintgreen to-secondary' }
 ];
 
 const PLACEHOLDER_IMG = "https://static.wixstatic.com/media/ba2849_ef64585e43574493bfede4a99a854c03~mv2.png?originWidth=1280&originHeight=704";
@@ -67,6 +80,15 @@ const GeometricGrid = ({ className }: { className?: string }) => (
     </defs>
     <rect width="100%" height="100%" fill="url(#angled-grid)" />
   </svg>
+);
+
+// --- Tech Pulse Animation ---
+const TechPulse = ({ delay = 0 }: { delay?: number }) => (
+  <motion.div
+    className="absolute w-2 h-2 bg-accentmintgreen rounded-full"
+    animate={{ scale: [1, 2, 1], opacity: [1, 0.5, 0] }}
+    transition={{ duration: 2, repeat: Infinity, delay }}
+  />
 );
 
 export default function HomePage() {
@@ -268,15 +290,24 @@ export default function HomePage() {
                   
                   <div className="relative z-10 flex flex-col sm:flex-row gap-8 items-start">
                     <motion.div 
-                      className="p-4 bg-primary border border-secondary/40 rounded-xl shrink-0 group-hover:border-accentmintgreen/60 transition-all duration-300"
+                      className="p-4 bg-primary border border-secondary/40 rounded-xl shrink-0 group-hover:border-accentmintgreen/60 transition-all duration-300 relative"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                     >
                       <feature.icon className="w-8 h-8 text-accentmintgreen" />
+                      <TechPulse delay={index * 0.2} />
                     </motion.div>
-                    <div>
-                      <h3 className="font-heading text-2xl lg:text-3xl uppercase mb-4 group-hover:text-accentmintgreen transition-colors duration-300">
-                        {feature.title}
-                      </h3>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-heading text-2xl lg:text-3xl uppercase group-hover:text-accentmintgreen transition-colors duration-300">
+                          {feature.title}
+                        </h3>
+                        <motion.span 
+                          className="text-xs font-heading text-accentmintgreen/70 bg-accentmintgreen/10 px-3 py-1 rounded-full whitespace-nowrap ml-4"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          {feature.tech}
+                        </motion.span>
+                      </div>
                       <p className="font-paragraph text-primary-foreground/70 leading-relaxed">
                         {feature.description}
                       </p>
@@ -286,6 +317,62 @@ export default function HomePage() {
               ))}
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* 
+        SECTION 3.5: TECHNOLOGY STACK
+        Showcase the cutting-edge tech powering VitalMind
+      */}
+      <section className="w-full bg-primary py-24 lg:py-40 relative overflow-hidden">
+        <div className="max-w-[120rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="mb-20 lg:mb-32 text-center"
+          >
+            <h2 className="font-heading text-5xl lg:text-7xl uppercase text-primary-foreground mb-6">
+              Powered by <span className="text-accentmintgreen">Next-Gen Tech</span>
+            </h2>
+            <p className="font-paragraph text-xl text-primary-foreground/70 max-w-2xl mx-auto">
+              Enterprise-grade infrastructure built for speed, security, and scale
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {techStack.map((tech, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="relative group"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-2xl blur-xl`} />
+                <div className="relative bg-gradient-to-br from-secondary/20 to-secondary/5 border border-secondary/40 p-8 rounded-2xl hover:border-accentmintgreen/60 transition-all duration-300 h-full flex flex-col items-center justify-center text-center">
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-4"
+                  >
+                    <tech.icon className="w-12 h-12 text-accentmintgreen" />
+                  </motion.div>
+                  <h3 className="font-heading text-lg uppercase text-primary-foreground group-hover:text-accentmintgreen transition-colors">
+                    {tech.label}
+                  </h3>
+                  <motion.div 
+                    className="mt-4 w-1 h-1 bg-accentmintgreen rounded-full"
+                    animate={{ scale: [1, 1.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
