@@ -77,7 +77,7 @@ export default function ResourcesPage() {
           <h1 className="font-heading text-5xl lg:text-7xl text-primary-foreground uppercase mb-4">
             WELLNESS RESOURCES
           </h1>
-          <p className="font-paragraph text-xl text-primary-foreground">
+          <p className="font-paragraph text-xl text-primary-foreground/80">
             Curated tools, guides, and materials to support your health journey
           </p>
         </motion.div>
@@ -87,21 +87,23 @@ export default function ResourcesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-secondary p-6 mb-12"
+          className="bg-gradient-to-br from-secondary/20 to-secondary/10 border border-secondary/40 p-6 mb-12 backdrop-blur-sm"
         >
           <div className="flex flex-wrap gap-3">
             {resourceTypes.map((type) => (
-              <button
+              <motion.button
                 key={type}
                 onClick={() => setSelectedType(type)}
-                className={`font-heading text-sm uppercase px-6 py-3 transition-all ${
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`font-heading text-sm uppercase px-6 py-3 transition-all border ${
                   selectedType === type
-                    ? 'bg-accentmintgreen text-primary'
-                    : 'bg-primary text-primary-foreground hover:bg-accentmintgreen hover:text-primary'
+                    ? 'bg-accentmintgreen text-primary border-accentmintgreen shadow-lg shadow-accentmintgreen/30'
+                    : 'bg-primary/50 text-primary-foreground border-secondary/40 hover:border-accentmintgreen/50'
                 }`}
               >
                 {type}
-              </button>
+              </motion.button>
             ))}
           </div>
         </motion.div>
@@ -126,17 +128,18 @@ export default function ResourcesPage() {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="bg-secondary overflow-hidden hover:bg-opacity-90 transition-all"
+                      className="bg-gradient-to-br from-secondary/30 to-secondary/10 border border-secondary/40 overflow-hidden hover:border-accentmintgreen/50 transition-all"
+                      whileHover={{ y: -4 }}
                     >
                       <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
                         {/* Image Column */}
                         {resource.thumbnailImage && (
-                          <div className="lg:col-span-1 h-64 lg:h-auto">
+                          <div className="lg:col-span-1 h-64 lg:h-auto overflow-hidden">
                             <Image
                               src={resource.thumbnailImage}
                               alt={resource.resourceTitle || 'Resource thumbnail'}
                               width={300}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
                         )}
@@ -146,7 +149,7 @@ export default function ResourcesPage() {
                           {resource.resourceType && (
                             <div className="flex items-center gap-2 mb-3">
                               <ResourceIcon className="w-5 h-5 text-accentmintgreen" />
-                              <span className="font-heading text-xs text-accentmintgreen uppercase">
+                              <span className="font-heading text-xs text-accentmintgreen uppercase tracking-widest">
                                 {resource.resourceType}
                               </span>
                             </div>
@@ -157,14 +160,14 @@ export default function ResourcesPage() {
                           </h3>
                           
                           {resource.description && (
-                            <p className="font-paragraph text-primary-foreground mb-4 flex-1">
+                            <p className="font-paragraph text-primary-foreground/80 mb-4 flex-1">
                               {resource.description}
                             </p>
                           )}
                           
                           <div className="space-y-3 mt-auto">
                             {resource.authorSource && (
-                              <div className="flex items-center gap-2 text-primary-foreground">
+                              <div className="flex items-center gap-2 text-primary-foreground/70">
                                 <User className="w-4 h-4" />
                                 <span className="font-paragraph text-sm">
                                   {resource.authorSource}
@@ -173,7 +176,7 @@ export default function ResourcesPage() {
                             )}
                             
                             {resource.dateAdded && (
-                              <div className="flex items-center gap-2 text-primary-foreground">
+                              <div className="flex items-center gap-2 text-primary-foreground/70">
                                 <Calendar className="w-4 h-4" />
                                 <span className="font-paragraph text-sm">
                                   Added {new Date(resource.dateAdded).toLocaleDateString('en-US', {
@@ -190,7 +193,7 @@ export default function ResourcesPage() {
                                 href={resource.resourceLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 bg-accentmintgreen text-primary font-heading text-sm uppercase px-6 py-3 hover:opacity-90 transition-opacity"
+                                className="inline-flex items-center gap-2 bg-accentmintgreen text-primary font-heading text-sm uppercase px-6 py-3 hover:shadow-lg hover:shadow-accentmintgreen/30 transition-all"
                               >
                                 ACCESS RESOURCE
                                 <ExternalLink className="w-4 h-4" />
@@ -246,20 +249,22 @@ export default function ResourcesPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-16 bg-secondary p-8 lg:p-12 text-center"
+          className="mt-16 bg-gradient-to-br from-secondary/30 to-secondary/10 border border-secondary/40 p-8 lg:p-12 text-center"
         >
           <h2 className="font-heading text-3xl lg:text-5xl text-primary-foreground uppercase mb-4">
             HAVE A HEALTH QUESTION?
           </h2>
-          <p className="font-paragraph text-lg text-primary-foreground mb-8 max-w-2xl mx-auto">
+          <p className="font-paragraph text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
             Submit your questions or topics you'd like to learn more about, and our team will create resources to help
           </p>
-          <a
+          <motion.a
             href="/contact"
-            className="inline-block bg-accentmintgreen text-primary font-heading text-lg uppercase px-10 py-4 hover:opacity-90 transition-opacity"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block bg-accentmintgreen text-primary font-heading text-lg uppercase px-10 py-4 hover:shadow-lg hover:shadow-accentmintgreen/30 transition-all"
           >
             SUBMIT A QUESTION
-          </a>
+          </motion.a>
         </motion.div>
       </div>
 

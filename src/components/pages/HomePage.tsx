@@ -91,17 +91,22 @@ export default function HomePage() {
 
       {/* 
         SECTION 1: HERO 
-        Directly inspired by HPI 1.7-V layout structure.
-        Asymmetrical split, bold color blocking, geometric grid motif, top-right accent.
+        Premium hero with enhanced visual hierarchy and modern interactions
       */}
-      <section ref={heroRef} className="relative w-full min-h-[100svh] flex flex-col lg:flex-row pt-20 lg:pt-0">
+      <section ref={heroRef} className="relative w-full min-h-[100svh] flex flex-col lg:flex-row pt-24 lg:pt-0">
         
         {/* Left Column - Vibrant Blue Block */}
         <motion.div 
           style={{ y: heroY, opacity: heroOpacity }}
-          className="w-full lg:w-[55%] bg-secondary flex flex-col justify-center px-6 py-20 lg:px-20 xl:px-32 relative z-10"
+          className="w-full lg:w-[55%] bg-gradient-to-br from-secondary to-secondary/90 flex flex-col justify-center px-6 py-20 lg:px-20 xl:px-32 relative z-10"
         >
           <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="max-w-3xl">
+            <motion.div variants={fadeUp} className="mb-6">
+              <span className="inline-block bg-accentmintgreen/20 text-accentmintgreen font-heading text-xs uppercase px-4 py-2 rounded-full tracking-widest border border-accentmintgreen/40">
+                ✨ AI-Powered Health Intelligence
+              </span>
+            </motion.div>
+            
             <motion.h1 variants={fadeUp} className="font-heading text-6xl sm:text-7xl lg:text-8xl xl:text-[9rem] uppercase leading-[0.85] tracking-tight mb-8">
               VitalMind<br />
               <span className="text-accentmintgreen">AI</span>
@@ -114,7 +119,7 @@ export default function HomePage() {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-6">
               <Link 
                 to="/dashboard"
-                className="group relative inline-flex items-center justify-center bg-accentmintgreen text-primary font-heading text-lg uppercase px-10 py-5 overflow-hidden"
+                className="group relative inline-flex items-center justify-center bg-accentmintgreen text-primary font-heading text-lg uppercase px-10 py-5 overflow-hidden hover:shadow-lg hover:shadow-accentmintgreen/50 transition-all duration-300"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Start Your Journey
@@ -124,7 +129,7 @@ export default function HomePage() {
               </Link>
               <Link 
                 to="/articles"
-                className="inline-flex items-center justify-center border border-primary-foreground/30 text-primary-foreground font-heading text-lg uppercase px-10 py-5 hover:bg-primary-foreground hover:text-secondary transition-colors duration-300"
+                className="inline-flex items-center justify-center border-2 border-primary-foreground/40 text-primary-foreground font-heading text-lg uppercase px-10 py-5 hover:bg-primary-foreground/10 hover:border-accentmintgreen transition-all duration-300 backdrop-blur-sm"
               >
                 Explore Articles
               </Link>
@@ -133,13 +138,18 @@ export default function HomePage() {
         </motion.div>
 
         {/* Right Column - Deep Navy with Grid Motif */}
-        <div className="w-full lg:w-[45%] bg-primary relative min-h-[50vh] lg:min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="w-full lg:w-[45%] bg-gradient-to-br from-primary to-primary/80 relative min-h-[50vh] lg:min-h-screen flex items-center justify-center overflow-hidden">
           <GeometricGrid className="text-accentmintgreen" />
           
-          {/* Top Right Accent Block (from inspiration) */}
-          <div className="absolute top-0 right-0 bg-accentmintgreen text-primary px-8 py-4 hidden lg:block z-20">
+          {/* Top Right Accent Block */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="absolute top-8 right-8 bg-accentmintgreen text-primary px-8 py-4 hidden lg:block z-20 shadow-lg shadow-accentmintgreen/30"
+          >
             <span className="font-heading uppercase tracking-widest text-sm font-bold">System Active</span>
-          </div>
+          </motion.div>
 
           {/* Abstract Floating Element */}
           <motion.div 
@@ -148,12 +158,24 @@ export default function HomePage() {
             transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
             className="relative z-10 w-3/4 aspect-square max-w-md"
           >
-            <div className="absolute inset-0 border border-accentmintgreen/30 rounded-full animate-[spin_60s_linear_infinite]" />
-            <div className="absolute inset-4 border border-secondary/40 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 border border-accentmintgreen/30 rounded-full"
+            />
+            <motion.div 
+              animate={{ rotate: -360 }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-4 border border-secondary/40 rounded-full"
+            />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-32 h-32 bg-secondary/20 backdrop-blur-xl rounded-full flex items-center justify-center border border-secondary/50">
+              <motion.div 
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="w-32 h-32 bg-gradient-to-br from-secondary/40 to-secondary/20 backdrop-blur-xl rounded-full flex items-center justify-center border border-secondary/50"
+              >
                 <Activity className="w-12 h-12 text-accentmintgreen" />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -161,17 +183,17 @@ export default function HomePage() {
 
       {/* 
         SECTION 2: VISUAL BREATHER & PARALLAX
-        A moment of cinematic pause to establish the core philosophy.
+        Premium cinematic pause with enhanced visual effects
       */}
       <section ref={breatherRef} className="relative w-full h-[80vh] lg:h-[100vh] overflow-hidden flex items-center justify-center">
         <motion.div style={{ y: breatherY }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
           <Image 
             src={PLACEHOLDER_IMG} 
             alt="Abstract representation of health data" 
-            className="w-full h-full object-cover opacity-40 mix-blend-luminosity"
+            className="w-full h-full object-cover opacity-50 mix-blend-luminosity"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/80 to-primary" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/85 to-primary" />
         
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
           <motion.div
@@ -180,14 +202,17 @@ export default function HomePage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
           >
-            <div className="inline-block border border-accentmintgreen/50 px-6 py-2 mb-8 rounded-full backdrop-blur-sm">
-              <span className="font-heading text-accentmintgreen uppercase tracking-widest text-sm">The Philosophy</span>
-            </div>
+            <motion.div 
+              className="inline-block border border-accentmintgreen/60 px-6 py-2 mb-8 rounded-full backdrop-blur-md bg-accentmintgreen/5"
+              whileHover={{ scale: 1.05, borderColor: '#B9FBC0' }}
+            >
+              <span className="font-heading text-accentmintgreen uppercase tracking-widest text-xs">✓ The Philosophy</span>
+            </motion.div>
             <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
               Don't wait to <br className="hidden md:block" />
-              <span className="text-secondary">get sick.</span>
+              <span className="text-accentmintgreen">get sick.</span>
             </h2>
-            <p className="font-paragraph text-xl md:text-2xl text-primary-foreground/70 max-w-2xl mx-auto">
+            <p className="font-paragraph text-xl md:text-2xl text-primary-foreground/75 max-w-2xl mx-auto leading-relaxed">
               Know before it happens. We bridge the gap between mental and physical health, creating a unified baseline for your vitality.
             </p>
           </motion.div>
@@ -196,7 +221,7 @@ export default function HomePage() {
 
       {/* 
         SECTION 3: INTELLIGENT HEALTH SYSTEM (Features)
-        Dynamic sticky layout to create narrative flow rather than a static grid.
+        Premium feature showcase with enhanced interactions
       */}
       <section className="w-full bg-primary py-24 lg:py-40 relative">
         <div className="max-w-[120rem] mx-auto px-6 lg:px-12">
@@ -204,7 +229,7 @@ export default function HomePage() {
             
             {/* Sticky Left Column */}
             <div className="lg:col-span-5">
-              <div className="sticky top-32">
+              <div className="sticky top-40">
                 <motion.div
                   initial="hidden"
                   whileInView="visible"
@@ -213,12 +238,15 @@ export default function HomePage() {
                 >
                   <h2 className="font-heading text-5xl lg:text-7xl uppercase leading-none mb-6">
                     Intelligent<br />
-                    <span className="text-secondary">System</span>
+                    <span className="text-accentmintgreen">System</span>
                   </h2>
-                  <p className="font-paragraph text-lg text-primary-foreground/70 mb-8 max-w-md">
+                  <p className="font-paragraph text-lg text-primary-foreground/70 mb-8 max-w-md leading-relaxed">
                     A unified platform that treats your body and mind as one interconnected system, continuously learning and adapting to your unique health patterns.
                   </p>
-                  <div className="w-24 h-1 bg-accentmintgreen" />
+                  <motion.div 
+                    className="w-24 h-1 bg-gradient-to-r from-accentmintgreen to-accentmintgreen/30"
+                    layoutId="underline"
+                  />
                 </motion.div>
               </div>
             </div>
@@ -232,15 +260,19 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group bg-secondary/5 border border-secondary/20 p-8 lg:p-12 hover:bg-secondary/10 transition-colors duration-500 relative overflow-hidden"
+                  className="group bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/30 p-8 lg:p-12 hover:border-accentmintgreen/50 hover:bg-secondary/15 transition-all duration-500 relative overflow-hidden"
+                  whileHover={{ y: -4 }}
                 >
                   {/* Hover Gradient Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accentmintgreen/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   
                   <div className="relative z-10 flex flex-col sm:flex-row gap-8 items-start">
-                    <div className="p-4 bg-primary border border-secondary/30 rounded-xl shrink-0 group-hover:border-accentmintgreen transition-colors duration-300">
+                    <motion.div 
+                      className="p-4 bg-primary border border-secondary/40 rounded-xl shrink-0 group-hover:border-accentmintgreen/60 transition-all duration-300"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                    >
                       <feature.icon className="w-8 h-8 text-accentmintgreen" />
-                    </div>
+                    </motion.div>
                     <div>
                       <h3 className="font-heading text-2xl lg:text-3xl uppercase mb-4 group-hover:text-accentmintgreen transition-colors duration-300">
                         {feature.title}
@@ -260,7 +292,7 @@ export default function HomePage() {
 
       {/* 
         SECTION 4: HOW IT WORKS (Process)
-        Magazine-style split layout with large imagery and stepped narrative.
+        Premium magazine-style layout with enhanced visual hierarchy
       */}
       <section className="w-full bg-secondary py-24 lg:py-40 relative overflow-hidden">
         <GeometricGrid className="text-primary opacity-20" />
@@ -283,7 +315,7 @@ export default function HomePage() {
             {/* Left: Stepped Content */}
             <div className="space-y-16 lg:space-y-24 relative">
               {/* Connecting Line */}
-              <div className="absolute left-[1.15rem] top-4 bottom-4 w-px bg-primary-foreground/20 hidden sm:block" />
+              <div className="absolute left-[1.15rem] top-4 bottom-4 w-px bg-gradient-to-b from-primary-foreground/40 via-primary-foreground/20 to-transparent hidden sm:block" />
 
               {[
                 { step: "01", title: "BUILD YOUR HEALTH DNA", desc: "Create a comprehensive 360° health profile including medical history, lifestyle habits, dietary preferences, and emotional baseline." },
@@ -296,17 +328,20 @@ export default function HomePage() {
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6 }}
-                  className="relative pl-0 sm:pl-16"
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="relative pl-0 sm:pl-16 group"
                 >
-                  <div className="hidden sm:flex absolute left-0 top-1 w-10 h-10 rounded-full bg-primary items-center justify-center border-2 border-accentmintgreen z-10">
-                    <span className="font-heading text-sm text-accentmintgreen">{item.step}</span>
-                  </div>
-                  <h3 className="font-heading text-2xl lg:text-4xl uppercase mb-4 text-accentmintgreen">
+                  <motion.div 
+                    className="hidden sm:flex absolute left-0 top-1 w-10 h-10 rounded-full bg-primary items-center justify-center border-2 border-accentmintgreen z-10 group-hover:scale-110 transition-transform"
+                    whileHover={{ scale: 1.2 }}
+                  >
+                    <span className="font-heading text-sm text-accentmintgreen font-bold">{item.step}</span>
+                  </motion.div>
+                  <h3 className="font-heading text-2xl lg:text-4xl uppercase mb-4 text-accentmintgreen group-hover:text-primary-foreground transition-colors">
                     <span className="sm:hidden mr-4">{item.step}.</span>
                     {item.title}
                   </h3>
-                  <p className="font-paragraph text-lg text-primary-foreground/80 leading-relaxed">
+                  <p className="font-paragraph text-lg text-primary-foreground/85 leading-relaxed">
                     {item.desc}
                   </p>
                 </motion.div>
@@ -319,23 +354,33 @@ export default function HomePage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative h-[60vh] lg:h-[80vh] w-full rounded-3xl overflow-hidden border border-primary-foreground/20"
+              className="relative h-[60vh] lg:h-[80vh] w-full rounded-2xl overflow-hidden border border-primary-foreground/30 shadow-2xl shadow-primary/50"
             >
               <Image 
                 src={PLACEHOLDER_IMG} 
                 alt="VitalMind AI Interface" 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-primary/40 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent mix-blend-multiply" />
               
               {/* Overlay UI Element */}
-              <div className="absolute bottom-8 left-8 right-8 bg-primary/80 backdrop-blur-md border border-primary-foreground/20 p-6 rounded-xl">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="absolute bottom-8 left-8 right-8 bg-primary/90 backdrop-blur-xl border border-primary-foreground/30 p-6 rounded-xl shadow-lg"
+              >
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-heading uppercase text-accentmintgreen">System Status</span>
-                  <span className="flex h-3 w-3 relative">
+                  <span className="font-heading uppercase text-accentmintgreen text-sm tracking-widest">System Status</span>
+                  <motion.span 
+                    className="flex h-3 w-3 relative"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accentmintgreen opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-accentmintgreen"></span>
-                  </span>
+                  </motion.span>
                 </div>
                 <div className="h-2 bg-secondary/30 rounded-full overflow-hidden">
                   <motion.div 
@@ -343,10 +388,10 @@ export default function HomePage() {
                     whileInView={{ width: "85%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.5, delay: 0.5 }}
-                    className="h-full bg-accentmintgreen"
+                    className="h-full bg-gradient-to-r from-accentmintgreen to-accentmintgreen/70"
                   />
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
 
           </div>
@@ -355,7 +400,7 @@ export default function HomePage() {
 
       {/* 
         SECTION 5: VITALITY INDEX (Deep Dive)
-        Full-width image banner with overlapping content block.
+        Premium full-width image banner with overlapping content block
       */}
       <section className="w-full bg-primary py-24 lg:py-40 relative">
         <div className="max-w-[120rem] mx-auto px-6 lg:px-12">
@@ -366,7 +411,7 @@ export default function HomePage() {
               <Image 
                 src={PLACEHOLDER_IMG} 
                 alt="Vitality Index Visualization" 
-                className="w-full h-full object-cover opacity-50 lg:opacity-100"
+                className="w-full h-full object-cover opacity-60 lg:opacity-100"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent lg:via-transparent" />
             </div>
@@ -377,31 +422,43 @@ export default function HomePage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative z-10 w-full lg:w-1/2 bg-primary/90 backdrop-blur-xl border border-secondary/30 p-8 lg:p-16"
+              className="relative z-10 w-full lg:w-1/2 bg-gradient-to-br from-primary/95 to-primary/90 backdrop-blur-xl border border-secondary/40 p-8 lg:p-16 shadow-2xl shadow-primary/50"
             >
-              <div className="inline-flex items-center justify-center w-20 h-20 border-2 border-accentmintgreen rounded-full mb-8">
-                <span className="font-heading text-3xl text-accentmintgreen">VI</span>
-              </div>
+              <motion.div 
+                className="inline-flex items-center justify-center w-20 h-20 border-2 border-accentmintgreen rounded-full mb-8 bg-accentmintgreen/10"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+              >
+                <span className="font-heading text-3xl text-accentmintgreen font-bold">VI</span>
+              </motion.div>
               <h2 className="font-heading text-4xl lg:text-6xl uppercase mb-6">
                 The Vitality <br />
-                <span className="text-secondary">Index</span>
+                <span className="text-accentmintgreen">Index</span>
               </h2>
-              <p className="font-paragraph text-lg lg:text-xl text-primary-foreground/80 mb-8 leading-relaxed">
+              <p className="font-paragraph text-lg lg:text-xl text-primary-foreground/85 mb-8 leading-relaxed">
                 Your daily health trajectory scored 0-100. We don't just track steps; we integrate mental, physical, and lifestyle signals into a single, actionable metric that tells you exactly where you stand.
               </p>
               <ul className="space-y-4 mb-10">
                 {['Mental State Correlation', 'Biometric Anomaly Detection', 'Lifestyle Impact Scoring'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 font-heading uppercase text-sm tracking-wider">
-                    <div className="w-1.5 h-1.5 bg-accentmintgreen rounded-full" />
+                  <motion.li 
+                    key={i} 
+                    className="flex items-center gap-3 font-heading uppercase text-sm tracking-wider"
+                    whileHover={{ x: 8 }}
+                  >
+                    <motion.div 
+                      className="w-2 h-2 bg-accentmintgreen rounded-full"
+                      animate={{ scale: [1, 1.3, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                    />
                     {item}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
               <Link 
                 to="/dashboard"
-                className="inline-flex items-center gap-2 text-accentmintgreen font-heading uppercase hover:text-primary-foreground transition-colors"
+                className="inline-flex items-center gap-2 text-accentmintgreen font-heading uppercase hover:text-primary-foreground transition-colors group"
               >
-                View Your Dashboard <ArrowRight className="w-4 h-4" />
+                View Your Dashboard 
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
 
@@ -411,7 +468,7 @@ export default function HomePage() {
 
       {/* 
         SECTION 6: CTA
-        Bold, high-contrast closing statement.
+        Premium bold closing statement with enhanced visual impact
       */}
       <section className="w-full bg-accentmintgreen py-32 lg:py-48 relative overflow-hidden">
         <GeometricGrid className="text-primary opacity-10" />
@@ -426,15 +483,20 @@ export default function HomePage() {
               Ready to transform <br />
               your health?
             </h2>
-            <p className="font-paragraph text-xl text-primary/80 mb-12 max-w-2xl mx-auto">
+            <p className="font-paragraph text-xl text-primary/80 mb-12 max-w-2xl mx-auto leading-relaxed">
               Join thousands who are taking control of their wellbeing with proactive, AI-powered health intelligence.
             </p>
-            <Link 
-              to="/dashboard"
-              className="inline-block bg-primary text-accentmintgreen font-heading text-xl uppercase px-12 py-6 hover:bg-secondary hover:text-primary-foreground transition-colors duration-300"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Get Started Now
-            </Link>
+              <Link 
+                to="/dashboard"
+                className="inline-block bg-primary text-accentmintgreen font-heading text-xl uppercase px-12 py-6 hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/50"
+              >
+                Get Started Now
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>

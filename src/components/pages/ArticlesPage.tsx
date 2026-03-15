@@ -100,7 +100,7 @@ export default function ArticlesPage() {
           <h1 className="font-heading text-5xl lg:text-7xl text-primary-foreground uppercase mb-4">
             HEALTH ARTICLES
           </h1>
-          <p className="font-paragraph text-xl text-primary-foreground">
+          <p className="font-paragraph text-xl text-primary-foreground/80">
             Evidence-based insights for your holistic wellbeing journey
           </p>
         </motion.div>
@@ -110,28 +110,28 @@ export default function ArticlesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-secondary p-6 mb-12"
+          className="bg-gradient-to-br from-secondary/20 to-secondary/10 border border-secondary/40 p-6 mb-12 backdrop-blur-sm"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary-foreground" />
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary-foreground/60 group-focus-within:text-accentmintgreen transition-colors" />
               <input
                 type="text"
                 placeholder="Search articles by title, topic, or health area..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-primary text-primary-foreground font-paragraph pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-accentmintgreen"
+                className="w-full bg-primary/50 text-primary-foreground font-paragraph pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-accentmintgreen/50 border border-secondary/30 focus:border-accentmintgreen transition-all"
               />
             </div>
 
             {/* Category Filter */}
-            <div className="relative">
-              <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary-foreground" />
+            <div className="relative group">
+              <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary-foreground/60 group-focus-within:text-accentmintgreen transition-colors" />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full bg-primary text-primary-foreground font-paragraph pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-accentmintgreen appearance-none cursor-pointer"
+                className="w-full bg-primary/50 text-primary-foreground font-paragraph pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-accentmintgreen/50 border border-secondary/30 focus:border-accentmintgreen appearance-none cursor-pointer transition-all"
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -146,12 +146,12 @@ export default function ArticlesPage() {
           {(searchTerm || selectedCategory !== 'all') && (
             <div className="mt-4 flex flex-wrap gap-2">
               {searchTerm && (
-                <span className="inline-block bg-primary px-3 py-1 font-paragraph text-sm text-primary-foreground">
+                <span className="inline-block bg-secondary/30 px-3 py-1 font-paragraph text-sm text-primary-foreground border border-secondary/50">
                   Search: "{searchTerm}"
                 </span>
               )}
               {selectedCategory !== 'all' && (
-                <span className="inline-block bg-primary px-3 py-1 font-paragraph text-sm text-primary-foreground">
+                <span className="inline-block bg-secondary/30 px-3 py-1 font-paragraph text-sm text-primary-foreground border border-secondary/50">
                   Category: {selectedCategory.toUpperCase()}
                 </span>
               )}
@@ -190,22 +190,26 @@ export default function ArticlesPage() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <Link to={`/articles/${article._id}`} className="block group">
-                        <div className="bg-secondary overflow-hidden h-full flex flex-col hover:bg-opacity-90 transition-all">
+                        <motion.div 
+                          className="bg-gradient-to-br from-secondary/30 to-secondary/10 border border-secondary/40 overflow-hidden h-full flex flex-col hover:border-accentmintgreen/50 transition-all duration-300"
+                          whileHover={{ y: -4 }}
+                        >
                           {article.coverImage && (
                             <div className="relative h-64 overflow-hidden">
                               <Image
                                 src={article.coverImage}
                                 alt={article.articleTitle || 'Article cover'}
                                 width={400}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                               />
+                              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
                             </div>
                           )}
                           <div className="p-6 flex-1 flex flex-col">
                             {article.category && (
                               <div className="flex items-center gap-2 mb-3">
                                 <CategoryIcon className="w-5 h-5 text-accentmintgreen" />
-                                <span className="font-heading text-xs text-accentmintgreen uppercase">
+                                <span className="font-heading text-xs text-accentmintgreen uppercase tracking-widest">
                                   {article.category}
                                 </span>
                               </div>
@@ -214,19 +218,19 @@ export default function ArticlesPage() {
                               {article.articleTitle}
                             </h3>
                             {article.topic && (
-                              <p className="font-paragraph text-sm text-primary-foreground mb-4">
+                              <p className="font-paragraph text-sm text-primary-foreground/70 mb-4">
                                 {article.topic}
                               </p>
                             )}
                             {article.healthArea && (
                               <div className="mt-auto">
-                                <span className="inline-block border border-accentmintgreen text-accentmintgreen font-paragraph text-xs px-3 py-1">
+                                <span className="inline-block border border-accentmintgreen/60 text-accentmintgreen font-paragraph text-xs px-3 py-1 hover:bg-accentmintgreen/10 transition-colors">
                                   {article.healthArea}
                                 </span>
                               </div>
                             )}
                           </div>
-                        </div>
+                        </motion.div>
                       </Link>
                     </motion.div>
                   );
